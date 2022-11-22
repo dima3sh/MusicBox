@@ -25,7 +25,7 @@ public class ParserServiceImpl implements ParserService {
     @Scheduled(fixedDelay = 1L)
     public void parseSongScheduled() {
         SongDto nd = findSong(num);
-        if (nd != null) {
+        if (nd != null && hasText(nd)) {
             Song song = Mappers.getMapper(SongMapper.class).mapObject(nd);
             System.out.println(nd);
             musicRepository.save(song);
@@ -40,5 +40,14 @@ public class ParserServiceImpl implements ParserService {
                 .retrieve()
                 .bodyToMono(SongDto.class)
                 .block();
+    }
+
+    private boolean hasText(SongDto song) {
+        if (song.getSections() != null) {
+            return song.getSections()
+                    .stream()
+                    .anyMatch(x ->  x.get("text") != null && x.get("text") != null);
+        }
+        return true;
     }
 }
