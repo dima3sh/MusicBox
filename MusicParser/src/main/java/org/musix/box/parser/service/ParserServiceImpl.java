@@ -1,7 +1,10 @@
 package org.musix.box.parser.service;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.mapstruct.factory.Mappers;
+import org.musix.box.parser.documents.Song;
 import org.musix.box.parser.dto.SongDto;
+import org.musix.box.parser.mapping.SongMapper;
+import org.musix.box.parser.repository.MusicRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -10,15 +13,24 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class ParserServiceImpl implements ParserService {
 
     private final WebClient webClient;
+    private final MusicRepository musicRepository;
+    private static long num = 507755527L;
 
-    public ParserServiceImpl(WebClient webClient) {
+    public ParserServiceImpl(WebClient webClient,
+                             MusicRepository musicRepository) {
         this.webClient = webClient;
+        this.musicRepository = musicRepository;
     }
 
     @Scheduled(fixedDelay = 1L)
     public void parseSongScheduled() {
-        SongDto nd = findSong(507755527L);
-        System.out.println(nd);
+        SongDto nd = findSong(num);
+        if (nd != null) {
+            Song song = Mappers.getMapper(SongMapper.class).mapObject(nd);
+            System.out.println(nd);
+            musicRepository.save(song);
+        }
+        num++;
     }
 
     private SongDto findSong(Long songId) {

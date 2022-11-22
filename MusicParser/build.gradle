@@ -1,6 +1,35 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(
+                "org.springframework.boot:spring-boot-gradle-plugin:2.7.5")
+    }
+}
 plugins {
     id 'java'
+    id 'java-library'
+    id "org.springframework.boot" version "2.7.5"
 }
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+compileJava {
+    options.compilerArgs += [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+            '-Amapstruct.verbose=true'
+    ]
+}
+
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -10,8 +39,12 @@ repositories {
 }
 
 dependencies {
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    implementation(group:'org.mapstruct', name:'mapstruct', version: '1.5.3.Final')
+    annotationProcessor(group:'org.mapstruct', name:'mapstruct-processor', version: '1.5.3.Final')
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.7.5'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    implementation(group: 'org.projectlombok', name: 'lombok', version: '1.18.24')
+    annotationProcessor(group: 'org.projectlombok', name:'lombok', version: '1.18.24')
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.7.5'
     implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.5')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
