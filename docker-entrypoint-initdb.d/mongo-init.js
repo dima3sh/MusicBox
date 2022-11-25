@@ -1,4 +1,4 @@
-
+print('Start #################################################################');
 db = db.getSiblingDB("music_box_db");
 
 db.createUser({
