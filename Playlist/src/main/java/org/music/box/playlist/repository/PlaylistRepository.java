@@ -1,6 +1,6 @@
-package org.musix.box.playlist.repository;
+package org.music.box.playlist.repository;
 
-import org.musix.box.playlist.documents.Playlist;
+import org.music.box.playlist.documents.Playlist;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.UUID;

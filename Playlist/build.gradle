@@ -13,9 +13,12 @@ repositories {
 dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.5')
 
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    implementation group: 'ma.glasnost.orika', name: 'orika-core', version: '1.5.4'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.projectlombok:lombok:1.18.20'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.7.5'
+    implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.5')
+    implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.7.5')
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

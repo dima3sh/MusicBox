@@ -1,4 +1,4 @@
-package org.musix.box.playlist;
+package org.music.box;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
