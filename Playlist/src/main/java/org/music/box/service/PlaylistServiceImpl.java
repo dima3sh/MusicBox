@@ -2,7 +2,10 @@ package org.music.box.service;
 
 import org.mapstruct.factory.Mappers;
 import org.music.box.dto.PlaylistResponseDto;
+import org.music.box.dto.SongResponseDto;
 import org.music.box.mapping.PlaylistMapper;
+import org.music.box.mapping.MusicMapper;
+import org.music.box.repository.MusicRepository;
 import org.music.box.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +17,13 @@ import java.util.stream.Collectors;
 public class PlaylistServiceImpl implements PlaylistService {
 
     private final PlaylistRepository playlistRepository;
+    private final MusicRepository musicRepository;
 
     @Autowired
-    public PlaylistServiceImpl(PlaylistRepository playlistRepository) {
+    public PlaylistServiceImpl(PlaylistRepository playlistRepository,
+                               MusicRepository musicRepository) {
         this.playlistRepository = playlistRepository;
+        this.musicRepository = musicRepository;
     }
 
     @Override
@@ -27,5 +33,10 @@ public class PlaylistServiceImpl implements PlaylistService {
                 .stream()
                 .map(Mappers.getMapper(PlaylistMapper.class)::playlistToPlaylistResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SongResponseDto> findAllSongs() {
+        return Mappers.getMapper(MusicMapper.class).mapSong(musicRepository.findAll());
     }
 }

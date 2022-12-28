@@ -1,9 +1,12 @@
 package org.music.box.listeners;
 
+import org.music.box.dto.SongResponseDto;
 import org.music.box.dto.UserSongRequestDto;
 import org.music.box.service.PlaylistService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class PlaylistListener {
@@ -15,7 +18,7 @@ public class PlaylistListener {
     }
 
     @KafkaListener(topics="playlist", containerFactory = "singleFactory")
-    public void orderListener(UserSongRequestDto requestDto){
-        System.out.println("hello");//todo rewrite
+    public List<SongResponseDto> orderListener(UserSongRequestDto requestDto){
+        return playlistService.findAllSongs();
     }
 }
