@@ -1,4 +1,4 @@
-package org.musix.box.notification.kafka;
+package org.music.box.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.LongDeserializer;
@@ -37,7 +37,7 @@ public class KafkaConsumerConfig {
 
     @Bean
     public KafkaListenerContainerFactory<?> singleFactory() {
-        ConcurrentKafkaListenerContainerFactory<Long, String> factory =
+        ConcurrentKafkaListenerContainerFactory<Long, Object> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setMessageConverter(new StringJsonMessageConverter());
@@ -45,7 +45,7 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<Long, String> consumerFactory() {
+    public ConsumerFactory<Long, Object> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
 

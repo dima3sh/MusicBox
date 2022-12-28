@@ -1,8 +1,8 @@
 package org.music.box.external.controller.configuration.music.playlist.service;
 
-import java.util.UUID;
+import org.music.box.external.controller.configuration.music.playlist.dto.UserSongRequestDto;
 
 public interface PlaylistService {
 
-    Boolean addSong(UUID songId);
+    Boolean addSong(UserSongRequestDto request);
 }
