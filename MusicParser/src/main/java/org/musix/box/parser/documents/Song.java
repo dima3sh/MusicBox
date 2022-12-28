@@ -18,7 +18,7 @@ public class Song {
     private Long id;
     private String subtitle;
     private String title;
-    private List<ObjectNode> sections;
+    private List<String> text;
     private String alias;
     private LocalDate releaseDate;
 }

@@ -46,8 +46,8 @@ public class ParserServiceImpl implements ParserService {
         if (song.getSections() != null) {
             return song.getSections()
                     .stream()
-                    .anyMatch(x ->  x.get("text") != null && x.get("text") != null);
+                    .anyMatch(x ->  x.get("text") != null);
         }
-        return true;
+        return false;
     }
 }
