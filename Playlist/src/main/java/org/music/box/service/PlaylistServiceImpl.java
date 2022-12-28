@@ -1,6 +1,7 @@
 package org.music.box.service;
 
-import org.music.box.dto.PlaylistResponseDTO;
+import org.mapstruct.factory.Mappers;
+import org.music.box.dto.PlaylistResponseDto;
 import org.music.box.mapping.PlaylistMapper;
 import org.music.box.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,11 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<PlaylistResponseDTO> getAll() {
+    public List<PlaylistResponseDto> getAll() {
         return playlistRepository
                 .findAll()
                 .stream()
-                .map(PlaylistMapper.INSTANCE::playlistToPlaylistResponseDTO)
+                .map(Mappers.getMapper(PlaylistMapper.class)::playlistToPlaylistResponseDto)
                 .collect(Collectors.toList());
     }
 }

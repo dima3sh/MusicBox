@@ -13,6 +13,8 @@ repositories {
 dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.5')
 
+    annotationProcessor(group: 'org.projectlombok', name:'lombok', version: '1.18.24')
+
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     implementation group: 'ma.glasnost.orika', name: 'orika-core', version: '1.5.4'
     implementation 'org.springframework.boot:spring-boot-starter'

@@ -1,6 +1,6 @@
 package org.music.box.controller;
 
-import org.music.box.dto.PlaylistResponseDTO;
+import org.music.box.dto.PlaylistResponseDto;
 import org.music.box.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class PlaylistController {
     private PlaylistService playlistService;
 
     @GetMapping("/musics")
-    public ResponseEntity<List<PlaylistResponseDTO>> getAll() {
+    public ResponseEntity<List<PlaylistResponseDto>> getAll() {
         return new ResponseEntity<>(playlistService.getAll(), HttpStatus.OK);
     }
 }

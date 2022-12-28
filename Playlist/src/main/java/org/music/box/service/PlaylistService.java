@@ -1,9 +1,9 @@
 package org.music.box.service;
 
-import org.music.box.dto.PlaylistResponseDTO;
+import org.music.box.dto.PlaylistResponseDto;
 
 import java.util.List;
 
 public interface PlaylistService {
-    List<PlaylistResponseDTO> getAll();
+    List<PlaylistResponseDto> getAll();
 }
