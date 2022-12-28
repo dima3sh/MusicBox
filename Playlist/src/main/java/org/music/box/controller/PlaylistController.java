@@ -1,7 +1,7 @@
-package org.music.box.playlist.controller;
+package org.music.box.controller;
 
-import org.music.box.playlist.dto.PlaylistResponseDTO;
-import org.music.box.playlist.service.PlaylistService;
+import org.music.box.dto.PlaylistResponseDTO;
+import org.music.box.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

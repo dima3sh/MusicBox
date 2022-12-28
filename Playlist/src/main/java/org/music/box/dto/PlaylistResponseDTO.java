@@ -1,4 +1,4 @@
-package org.music.box.playlist.dto;
+package org.music.box.dto;
 
 import lombok.Getter;
 import lombok.Setter;

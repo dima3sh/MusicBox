@@ -1,6 +1,6 @@
-package org.music.box.playlist.service;
+package org.music.box.service;
 
-import org.music.box.playlist.dto.PlaylistResponseDTO;
+import org.music.box.dto.PlaylistResponseDTO;
 
 import java.util.List;
 

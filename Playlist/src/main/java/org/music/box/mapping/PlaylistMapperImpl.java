@@ -1,7 +1,7 @@
-package org.music.box.playlist.mapping;
+package org.music.box.mapping;
 
-import org.music.box.playlist.documents.Playlist;
-import org.music.box.playlist.dto.PlaylistResponseDTO;
+import org.music.box.documents.Playlist;
+import org.music.box.dto.PlaylistResponseDTO;
 
 public class PlaylistMapperImpl implements PlaylistMapper {
     @Override

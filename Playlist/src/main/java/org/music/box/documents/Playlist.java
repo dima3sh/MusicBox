@@ -1,4 +1,4 @@
-package org.music.box.playlist.documents;
+package org.music.box.documents;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

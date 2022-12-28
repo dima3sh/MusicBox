@@ -1,10 +1,8 @@
-package org.music.box.playlist.service;
+package org.music.box.service;
 
-import ma.glasnost.orika.MapperFactory;
-import org.music.box.playlist.documents.Playlist;
-import org.music.box.playlist.dto.PlaylistResponseDTO;
-import org.music.box.playlist.mapping.PlaylistMapper;
-import org.music.box.playlist.repository.PlaylistRepository;
+import org.music.box.dto.PlaylistResponseDTO;
+import org.music.box.mapping.PlaylistMapper;
+import org.music.box.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

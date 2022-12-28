@@ -1,9 +1,9 @@
-package org.music.box.playlist.mapping;
+package org.music.box.mapping;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.music.box.playlist.documents.Playlist;
-import org.music.box.playlist.dto.PlaylistResponseDTO;
+import org.music.box.documents.Playlist;
+import org.music.box.dto.PlaylistResponseDTO;
 
 @Mapper
 public interface PlaylistMapper {
