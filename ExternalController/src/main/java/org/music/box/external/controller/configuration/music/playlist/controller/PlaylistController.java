@@ -26,14 +26,14 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
-    @GetMapping("/musics")
-    public ResponseEntity<List<SongResponseDto>> findSongs() {
-        return new ResponseEntity<>(playlistService.findSongs(), HttpStatus.OK);
+    @GetMapping("/songs/{search}")
+    public ResponseEntity<List<SongResponseDto>> findSongs(@PathVariable("search") String search) {
+        return new ResponseEntity<>(playlistService.findSongs(search), HttpStatus.OK);
     }
 
     @GetMapping("/{songId}")
     public ResponseEntity<Boolean> findSongs(@PathVariable("songId") UUID songId) {
-        playlistService.findSongs();
+        playlistService.findSongs("songId");
         return ResponseEntity.ok(true);
     }
 }

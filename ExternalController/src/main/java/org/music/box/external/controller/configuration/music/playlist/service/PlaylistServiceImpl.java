@@ -17,7 +17,7 @@ import java.util.List;
 public class PlaylistServiceImpl implements PlaylistService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlaylistServiceImpl.class);
-    private final ParameterizedTypeReference<List<SongResponseDto>> TYPE = new ParameterizedTypeReference<>() {};
+    private final ParameterizedTypeReference<List<SongResponseDto>> SONGS = new ParameterizedTypeReference<>() {};
 
     @Value("${rabbitmq.exchange.name}")
     private String exchange;
@@ -41,13 +41,9 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<SongResponseDto> findSongs() {
+    public List<SongResponseDto> findSongs(String search) {
         LOGGER.info(String.format("Message sent -> %s", "asd"));
-        List<SongResponseDto> response = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, new SongResponseDto(), TYPE);
-        System.out.println(response.toString());
-        //return response;
-        //rabbitTemplate.convertAndSend(exchange, routingKey, "aba");
-        return null;
+        return rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, search, SONGS);
     }
 
 //    @RabbitListener(queues = {"${rabbitmq.queue.name}"})

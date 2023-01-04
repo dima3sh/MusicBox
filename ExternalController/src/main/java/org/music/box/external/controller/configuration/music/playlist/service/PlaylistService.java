@@ -9,5 +9,5 @@ public interface PlaylistService {
 
     Boolean addSong(UserSongRequestDto request);
 
-    List<SongResponseDto> findSongs();
+    List<SongResponseDto> findSongs(String search);
 }
