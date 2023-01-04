@@ -42,8 +42,8 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
 
-    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
-    public List<SongResponseDto> findAllSongs(String aba) {
+    @RabbitListener(queues = {"${rabbitmq.queue.name}"}, containerFactory = "rabbitListenerContainerFactory")
+    public List<SongResponseDto> findAllSongs(SongResponseDto aba) {
 
         return Mappers.getMapper(MusicMapper.class).mapSong(musicRepository.findAll());
     }
