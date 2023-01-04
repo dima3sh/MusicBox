@@ -7,6 +7,7 @@ import org.music.box.mapping.PlaylistMapper;
 import org.music.box.mapping.MusicMapper;
 import org.music.box.repository.MusicRepository;
 import org.music.box.repository.PlaylistRepository;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,13 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public List<SongResponseDto> findAllSongs() {
+        return Mappers.getMapper(MusicMapper.class).mapSong(musicRepository.findAll());
+    }
+
+
+    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
+    public List<SongResponseDto> findAllSongs(String aba) {
+
         return Mappers.getMapper(MusicMapper.class).mapSong(musicRepository.findAll());
     }
 }
