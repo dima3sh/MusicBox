@@ -1,6 +1,7 @@
 package org.music.box.external.controller.configuration.music.playlist.controller;
 
 import org.music.box.external.controller.configuration.music.playlist.dto.SongResponseDto;
+import org.music.box.external.controller.configuration.music.playlist.dto.SongSearchingDto;
 import org.music.box.external.controller.configuration.music.playlist.dto.UserSongRequestDto;
 import org.music.box.external.controller.configuration.music.playlist.service.PlaylistService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,13 +29,15 @@ public class PlaylistController {
     }
 
     @GetMapping("/songs/{search}")
-    public ResponseEntity<List<SongResponseDto>> findSongs(@PathVariable("search") String search) {
-        return new ResponseEntity<>(playlistService.findSongs(search), HttpStatus.OK);
+    public ResponseEntity<List<SongResponseDto>> findSongs(@PathVariable("search") String search,
+                                                           @RequestParam("page") Integer page,
+                                                           @RequestParam("size") Integer size) {
+        return new ResponseEntity<>(playlistService.findSongs(new SongSearchingDto(search, page, size)), HttpStatus.OK);
     }
 
     @GetMapping("/{songId}")
     public ResponseEntity<Boolean> findSongs(@PathVariable("songId") UUID songId) {
-        playlistService.findSongs("songId");
+        //playlistService.findSongs("songId");
         return ResponseEntity.ok(true);
     }
 }

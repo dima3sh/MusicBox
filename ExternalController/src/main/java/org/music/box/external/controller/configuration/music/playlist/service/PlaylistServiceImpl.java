@@ -2,6 +2,7 @@ package org.music.box.external.controller.configuration.music.playlist.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.music.box.external.controller.configuration.music.playlist.dto.SongResponseDto;
+import org.music.box.external.controller.configuration.music.playlist.dto.SongSearchingDto;
 import org.music.box.external.controller.configuration.music.playlist.dto.UserSongRequestDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     }
 
     @Override
-    public List<SongResponseDto> findSongs(String search) {
+    public List<SongResponseDto> findSongs(SongSearchingDto search) {
         LOGGER.info(String.format("Message sent -> %s", "asd"));
         return rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, search, SONGS);
     }

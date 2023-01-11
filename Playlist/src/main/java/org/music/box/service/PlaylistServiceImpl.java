@@ -1,14 +1,17 @@
 package org.music.box.service;
 
 import org.mapstruct.factory.Mappers;
+import org.music.box.documents.Song;
 import org.music.box.dto.PlaylistResponseDto;
 import org.music.box.dto.SongResponseDto;
-import org.music.box.mapping.PlaylistMapper;
+import org.music.box.dto.SongSearchingDto;
 import org.music.box.mapping.MusicMapper;
+import org.music.box.mapping.PlaylistMapper;
 import org.music.box.repository.MusicRepository;
 import org.music.box.repository.PlaylistRepository;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,9 +44,9 @@ public class PlaylistServiceImpl implements PlaylistService {
         return Mappers.getMapper(MusicMapper.class).mapSong(musicRepository.findAll());
     }
 
-
-    @RabbitListener(queues = {"${rabbitmq.queue.name}"}, containerFactory = "rabbitListenerContainerFactory")
-    public List<SongResponseDto> findAllSongs(String searchSubstring) {
-        return Mappers.getMapper(MusicMapper.class).mapSong(musicRepository.findByTitleContainingOrSubtitleContaining(searchSubstring));
+    @Override
+    public List<SongResponseDto> findAllSongs(SongSearchingDto search) {
+        Page<Song> songs = musicRepository.findByTitleContainingOrSubtitleContaining(search.getSearch(), PageRequest.of(search.getPage(), search.getSize()));
+        return Mappers.getMapper(MusicMapper.class).mapSong(songs.getContent());
     }
 }
