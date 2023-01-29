@@ -46,20 +46,4 @@ public class PlaylistServiceImpl implements PlaylistService {
         LOGGER.info(String.format("Message sent -> %s", "asd"));
         return rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, search, SONGS);
     }
-
-//    @RabbitListener(queues = {"${rabbitmq.queue.name}"})
-//    public List<SongResponseDto> findAllSongs(String aba) {
-//        LOGGER.info(String.format("Message sent -> %s", aba));
-//        return null;
-//    }
-
-//    @Override
-//    public List<SongResponseDto> findSongs() {
-//        CompletableFuture<SendResult<Long, Object>> future = template.send("playlist", null);
-//        try {
-//            return (List<SongResponseDto>)future.get().getProducerRecord().value();
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
 }
