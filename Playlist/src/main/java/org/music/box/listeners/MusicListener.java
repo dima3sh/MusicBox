@@ -22,7 +22,7 @@ public class MusicListener {
         this.musicRepository = musicRepository;
     }
 
-    @RabbitListener(queues = {"queue", "GET.PLAYLIST"}, containerFactory = "rabbitListenerContainerFactory")
+    @RabbitListener(queues = {"GET.PLAYLIST"}, containerFactory = "rabbitListenerContainerFactory")
     public List<SongResponseDto> findAllSongs(SongSearchingDto search) {
         Page<Song> songs = musicRepository.findByTitleContainingOrSubtitleContaining(search.getSearch(), PageRequest.of(search.getPage(), search.getSize()));
         return Mappers.getMapper(MusicMapper.class).mapSong(songs.getContent());

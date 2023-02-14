@@ -8,18 +8,26 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RabbitTemplateFacadeImpl implements RabbitTemplateFacade{
 
+    private final String exchange;
+    private final String routingKey;
     private final RabbitAdmin admin;
     private final RabbitTemplate rabbitTemplate;
 
-    public RabbitTemplateFacadeImpl(RabbitAdmin admin, RabbitTemplate rabbitTemplate) {
+    public RabbitTemplateFacadeImpl(RabbitAdmin admin,
+                                    RabbitTemplate rabbitTemplate,
+                                    @Value("${rabbitmq.routing.key}") String routingKey,
+                                    @Value("${rabbitmq.exchange.name}") String exchange) {
         this.admin = admin;
         this.rabbitTemplate = rabbitTemplate;
+        this.exchange = exchange;
+        this.routingKey = routingKey;
     }
 
     @Override
@@ -27,11 +35,11 @@ public class RabbitTemplateFacadeImpl implements RabbitTemplateFacade{
         String queueName = method.getName() + "." + type.getName();
         if (admin.getQueueProperties(queueName) == null) {
             Queue queue = new Queue(queueName);
-            DirectExchange exchange = new DirectExchange("exchange");
-            Binding binding = BindingBuilder.bind(queue).to(exchange).with("routing_key");
+            DirectExchange exchange = new DirectExchange(this.exchange);
+            Binding binding = BindingBuilder.bind(queue).to(exchange).with(routingKey);
             admin.declareQueue(queue);
             admin.declareBinding(binding);
         }
-        return rabbitTemplate.convertSendAndReceiveAsType("exchange", "routing_key", obj, responseType);
+        return rabbitTemplate.convertSendAndReceiveAsType(this.exchange, routingKey, obj, responseType);
     }
 }

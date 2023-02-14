@@ -22,21 +22,11 @@ public class PlaylistServiceImpl implements PlaylistService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PlaylistServiceImpl.class);
     private final ParameterizedTypeReference<List<SongResponseDto>> SONGS = new ParameterizedTypeReference<>() {};
 
-    @Value("${rabbitmq.exchange.name}")
-    private String exchange;
-
-    @Value("${rabbitmq.routing.key}")
-    private String routingKey;
-
-    private final RabbitTemplateFacadeImpl rabbitTemplate;
-    private final RabbitTemplate template;
-    private final ObjectMapper mapper;
+    private final RabbitTemplateFacadeImpl rabbitTemplateFacade;
 
     @Autowired
-    public PlaylistServiceImpl(RabbitTemplateFacadeImpl rabbitTemplate, RabbitTemplate template, ObjectMapper mapper) {
-        this.rabbitTemplate = rabbitTemplate;
-        this.template = template;
-        this.mapper = mapper;
+    public PlaylistServiceImpl(RabbitTemplateFacadeImpl rabbitTemplateFacade) {
+        this.rabbitTemplateFacade = rabbitTemplateFacade;
     }
 
     @Override
@@ -48,7 +38,6 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public List<SongResponseDto> findSongs(SongSearchingDto search) {
         LOGGER.info(String.format("Message sent -> %s", "asd"));
-        //return template.convertSendAndReceiveAsType(exchange, routingKey, search, SONGS);
-        return rabbitTemplate.sendMessageAndReceive(RabbitMethod.GET, RabbitType.PLAYLIST, search, SONGS);
+        return rabbitTemplateFacade.sendMessageAndReceive(RabbitMethod.GET, RabbitType.PLAYLIST, search, SONGS);
     }
 }
