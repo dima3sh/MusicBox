@@ -1,10 +1,8 @@
-package org.music.box.external.controller.configuration.music.playlist.controller;
+package org.music.box.external.controller.controller;
 
-import org.music.box.external.controller.configuration.music.playlist.dto.SongResponseDto;
-import org.music.box.external.controller.configuration.music.playlist.dto.SongSearchingDto;
-import org.music.box.external.controller.configuration.music.playlist.dto.UserSongRequestDto;
-import org.music.box.external.controller.configuration.music.playlist.service.PlaylistService;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.music.box.external.controller.dto.SongResponseDto;
+import org.music.box.external.controller.dto.SongSearchingDto;
+import org.music.box.external.controller.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

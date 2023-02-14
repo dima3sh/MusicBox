@@ -1,4 +1,4 @@
-package org.music.box.external.controller.configuration.music.playlist.dto;
+package org.music.box.external.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

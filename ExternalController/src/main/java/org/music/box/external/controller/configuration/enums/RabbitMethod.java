@@ -1,4 +1,4 @@
-package org.music.box.external.controller.configuration.music.playlist.configuration.enums;
+package org.music.box.external.controller.configuration.enums;
 
 public enum RabbitMethod {
     GET("GET"),

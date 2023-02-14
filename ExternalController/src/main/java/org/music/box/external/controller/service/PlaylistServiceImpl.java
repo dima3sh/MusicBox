@@ -1,9 +1,11 @@
-package org.music.box.external.controller.configuration.music.playlist.service;
+package org.music.box.external.controller.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.music.box.external.controller.configuration.music.playlist.dto.SongResponseDto;
-import org.music.box.external.controller.configuration.music.playlist.dto.SongSearchingDto;
-import org.music.box.external.controller.configuration.music.playlist.dto.UserSongRequestDto;
+import org.music.box.external.controller.configuration.enums.RabbitMethod;
+import org.music.box.external.controller.configuration.enums.RabbitType;
+import org.music.box.external.controller.dto.SongResponseDto;
+import org.music.box.external.controller.dto.SongSearchingDto;
+import org.music.box.external.controller.dto.UserSongRequestDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -26,12 +28,14 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Value("${rabbitmq.routing.key}")
     private String routingKey;
 
-    private final RabbitTemplate rabbitTemplate;
+    private final RabbitTemplateFacadeImpl rabbitTemplate;
+    private final RabbitTemplate template;
     private final ObjectMapper mapper;
 
     @Autowired
-    public PlaylistServiceImpl(RabbitTemplate rabbitTemplate, ObjectMapper mapper) {
+    public PlaylistServiceImpl(RabbitTemplateFacadeImpl rabbitTemplate, RabbitTemplate template, ObjectMapper mapper) {
         this.rabbitTemplate = rabbitTemplate;
+        this.template = template;
         this.mapper = mapper;
     }
 
@@ -44,6 +48,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     @Override
     public List<SongResponseDto> findSongs(SongSearchingDto search) {
         LOGGER.info(String.format("Message sent -> %s", "asd"));
-        return rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, search, SONGS);
+        //return template.convertSendAndReceiveAsType(exchange, routingKey, search, SONGS);
+        return rabbitTemplate.sendMessageAndReceive(RabbitMethod.GET, RabbitType.PLAYLIST, search, SONGS);
     }
 }
