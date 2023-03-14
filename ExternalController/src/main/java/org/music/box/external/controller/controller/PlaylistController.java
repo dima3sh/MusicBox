@@ -2,12 +2,15 @@ package org.music.box.external.controller.controller;
 
 import org.music.box.external.controller.dto.SongResponseDto;
 import org.music.box.external.controller.dto.SongSearchingDto;
+import org.music.box.external.controller.dto.UserSongRequestDto;
 import org.music.box.external.controller.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +39,12 @@ public class PlaylistController {
     @GetMapping("/{songId}")
     public ResponseEntity<Boolean> findSongs(@PathVariable("songId") UUID songId) {
         //playlistService.findSongs("songId");
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/{songId}")
+    public ResponseEntity<Boolean> addSong(@PathVariable("songId") Long songId) {
+        playlistService.addSong(new UserSongRequestDto(songId, UUID.fromString("ea461755-2cca-43a4-ac2d-f4d3b3d81c60")));
         return ResponseEntity.ok(true);
     }
 }

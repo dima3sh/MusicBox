@@ -1,7 +1,8 @@
 package org.music.box.external.controller.configuration.enums;
 
 public enum RabbitType {
-    PLAYLIST("PLAYLIST");
+    PLAYLIST("PLAYLIST"),
+    SONG("SONG");
 
     private String name;
 

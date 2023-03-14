@@ -22,6 +22,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlaylistServiceImpl.class);
     private final ParameterizedTypeReference<List<SongResponseDto>> SONGS = new ParameterizedTypeReference<>() {};
+    private final ParameterizedTypeReference<Boolean> BOOLEAN = new ParameterizedTypeReference<>() {};
 
     private final RabbitTemplateFacadeImpl rabbitTemplateFacade;
 
@@ -38,8 +39,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     @Override
     public Boolean addSong(UserSongRequestDto request) {
-        //rabbitTemplate.send("playlist", request);
-        return null;
+        return rabbitTemplateFacade.sendMessageAndReceive(RabbitMethod.POST, RabbitType.SONG, request, BOOLEAN);
     }
 
     @Override
