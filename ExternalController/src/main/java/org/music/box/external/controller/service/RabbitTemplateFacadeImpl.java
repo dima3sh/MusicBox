@@ -36,10 +36,11 @@ public class RabbitTemplateFacadeImpl implements RabbitTemplateFacade{
         if (admin.getQueueProperties(queueName) == null) {
             Queue queue = new Queue(queueName);
             DirectExchange exchange = new DirectExchange(this.exchange);
-            Binding binding = BindingBuilder.bind(queue).to(exchange).with(routingKey);
+            Binding binding = BindingBuilder.bind(queue).to(exchange).with(queueName);
             admin.declareQueue(queue);
             admin.declareBinding(binding);
         }
+        String routingKey = queueName;
         return rabbitTemplate.convertSendAndReceiveAsType(this.exchange, routingKey, obj, responseType);
     }
 }
