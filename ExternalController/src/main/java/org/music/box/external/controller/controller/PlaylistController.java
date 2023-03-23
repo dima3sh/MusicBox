@@ -1,5 +1,6 @@
 package org.music.box.external.controller.controller;
 
+import org.music.box.external.controller.dto.SongRequestDto;
 import org.music.box.external.controller.dto.SongResponseDto;
 import org.music.box.external.controller.dto.SongSearchingDto;
 import org.music.box.external.controller.dto.UserSongRequestDto;
@@ -45,6 +46,13 @@ public class PlaylistController {
     @PostMapping("/{songId}")
     public ResponseEntity<Boolean> addSong(@PathVariable("songId") Long songId) {
         playlistService.addSong(new UserSongRequestDto(songId, UUID.fromString("ea461755-2cca-43a4-ac2d-f4d3b3d81c60")));
+        return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/user/songs")
+    public ResponseEntity<Boolean> findUserSongs(@RequestParam("page") Integer page,
+                                                 @RequestParam("size") Integer size) {
+        playlistService.findUserSongs(new SongRequestDto(UUID.fromString("ea461755-2cca-43a4-ac2d-f4d3b3d81c60"), page, size));
         return ResponseEntity.ok(true);
     }
 }

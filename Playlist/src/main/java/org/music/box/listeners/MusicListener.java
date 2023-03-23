@@ -2,6 +2,7 @@ package org.music.box.listeners;
 
 import org.mapstruct.factory.Mappers;
 import org.music.box.documents.Song;
+import org.music.box.dto.SongRequestDto;
 import org.music.box.dto.SongResponseDto;
 import org.music.box.dto.SongSearchingDto;
 import org.music.box.dto.UserSongRequestDto;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class MusicListener {
@@ -42,5 +44,16 @@ public class MusicListener {
         }
     }
 
+    @RabbitListener(queues = {"GET.USER_PLAYLIST"}, containerFactory = "rabbitListenerContainerFactory")
+    public List<SongResponseDto> findUserSongs(UUID requestDto) {
+        try {
+            SongRequestDto requestDt2 = new SongRequestDto() {
+            };
+            //Page<Song> songs = musicRepository.findByTitleContainingOrSubtitleContaining();
+            return null;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
 
 }

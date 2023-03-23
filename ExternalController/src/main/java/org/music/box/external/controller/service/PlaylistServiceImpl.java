@@ -3,6 +3,7 @@ package org.music.box.external.controller.service;
 import jakarta.annotation.PostConstruct;
 import org.music.box.external.controller.configuration.enums.RabbitMethod;
 import org.music.box.external.controller.configuration.enums.RabbitType;
+import org.music.box.external.controller.dto.SongRequestDto;
 import org.music.box.external.controller.dto.SongResponseDto;
 import org.music.box.external.controller.dto.SongSearchingDto;
 import org.music.box.external.controller.dto.UserSongRequestDto;
@@ -17,7 +18,6 @@ import java.util.List;
 @Service
 public class PlaylistServiceImpl implements PlaylistService {
 
-    @RandomNumber(min = 2, max = 5)
     private int randomInt;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PlaylistServiceImpl.class);
@@ -46,5 +46,10 @@ public class PlaylistServiceImpl implements PlaylistService {
     public List<SongResponseDto> findSongs(SongSearchingDto search) {
         LOGGER.info(String.format("Message sent -> %s", "asd"));
         return rabbitTemplateFacade.sendMessageAndReceive(RabbitMethod.GET, RabbitType.PLAYLIST, search, SONGS);
+    }
+
+    @Override
+    public List<SongResponseDto> findUserSongs(SongRequestDto request) {
+        return rabbitTemplateFacade.sendMessageAndReceive(RabbitMethod.GET, RabbitType.USER_PLAYLIST, request, SONGS);
     }
 }

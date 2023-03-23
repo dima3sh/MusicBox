@@ -21,6 +21,7 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.24'
     implementation 'joda-time:joda-time:2.12.2'
 
+    implementation(group: 'org.liquibase', name: 'liquibase-core', version: '4.8.0')
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.0.0'
     implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.0.0'
     implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.0.0')
