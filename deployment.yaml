@@ -33,7 +33,6 @@ metadata:
   name: kuber-service
 spec: 
   selector:
-    matchLabels:
       app: http-server
   ports:
     - protocol: TCP
